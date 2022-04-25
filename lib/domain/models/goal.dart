@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:targets_and_goals/domain/models/action.dart';
+import 'package:targets_and_goals/domain/models/solution.dart';
 
 import 'goal_type.dart';
 
@@ -8,14 +8,14 @@ class Goal extends Equatable {
   final String title;
   final String description;
   final GoalType type;
-  final List<Action> goalsActions;
+  final List<Solution> goalsActions;
 
   const Goal({
     required this.id,
     required this.title,
     required this.description,
     required this.type,
-    this.goalsActions = const [],
+    required this.goalsActions,
   });
 
   @override
@@ -39,4 +39,20 @@ class Goal extends Equatable {
   }
 
   bool get completed => (readinessInPercents >= 100);
+
+  Goal copyWith({
+    String? id,
+    String? title,
+    String? description,
+    GoalType? type,
+    List<Solution>? goalsActions,
+  }) {
+    return Goal(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      description: description ?? this.description,
+      type: type ?? this.type,
+      goalsActions: goalsActions ?? this.goalsActions,
+    );
+  }
 }
